@@ -17,7 +17,7 @@ app.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` );
 });
 
-
+// Returns info for open pull requests
 async function getOpenPullRequests(owner: listUserRepoPullsParameters["owner"], repo: listUserRepoPullsParameters["repo"]) {
   const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
     owner,
@@ -25,13 +25,14 @@ async function getOpenPullRequests(owner: listUserRepoPullsParameters["owner"], 
     state: 'open'
   })
   // tslint:disable-next-line:no-console
-  console.log('response', response.data)
+  // console.log('response', response.data)
 
   response.data.forEach(pullRequest => {
      getCommitList(owner, repo, pullRequest.number)
   })
 }
 
+// Returns commit list (number of commits)
 // tslint:disable-next-line:variable-name
 async function getCommitList(owner: string, repo: string, pull_number: number) {
   const response = await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/commits', {
@@ -41,7 +42,7 @@ async function getCommitList(owner: string, repo: string, pull_number: number) {
   })
 
   // tslint:disable-next-line:no-console
-  console.log(response)
+  console.log(response.data, response.data.length)
 }
 
 // tslint:disable-next-line:no-console
