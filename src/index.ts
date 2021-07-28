@@ -1,4 +1,4 @@
-const express = require( "express" );
+import express from "express";
 const app = express();
 const port = 8080; // default port to listen
 const { Octokit } = require("@octokit/core");
@@ -16,7 +16,7 @@ app.listen( port, () => {
 
 
 async function test() {
-  let response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+  const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
     owner: 'octocat',
     repo: 'hello-world'
   })
