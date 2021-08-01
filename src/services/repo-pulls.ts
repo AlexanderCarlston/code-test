@@ -2,10 +2,10 @@ import { Octokit } from "@octokit/core";
 import { Endpoints } from "@octokit/types";
 const octokit = new Octokit();
 type listUserRepoPullsParameters = Endpoints["GET /repos/{owner}/{repo}/pulls"]["parameters"];
-type listUserRepoPullsResponse = Endpoints["GET /repos/{owner}/{repo}"]["response"];
+type listUserRepoPullsResponse = Endpoints["GET /repos/{owner}/{repo}/pulls"]["response"];
 
 // Returns info for open pull requests
-export async function getOpenPullRequestsForRepo(owner: listUserRepoPullsParameters["owner"], repo: listUserRepoPullsParameters["repo"]) {
+export async function getOpenPullRequestsForRepo(owner: listUserRepoPullsParameters["owner"], repo: listUserRepoPullsParameters["repo"]): Promise<listUserRepoPullsResponse> {
   return await octokit.request('GET /repos/{owner}/{repo}/pulls', {
     owner,
     repo,

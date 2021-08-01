@@ -1,5 +1,5 @@
 import express from "express";
-import { getOpenPullRequestsForRepo } from "./services/repo-pulls";
+import { getOpenPullRequestsForRepo, getCommitList } from "./services/repo-pulls";
 const app = express();
 const port = 8080;
 
@@ -8,19 +8,24 @@ app.get( "/", ( req, res ) => {
 });
 
 app.get( "/owner/:owner/repos/:repo/pulls", async( req, res ) => {
-    const response = await getOpenPullRequestsForRepo(req.params.owner, req.params.repo)
+    try {
+      const response = await getOpenPullRequestsForRepo(req.params.owner, req.params.repo)
+      res.send(response.data);
+    } catch(error) {
+      res.sendStatus(error.status);
+    }
+});
 
-    // tslint:disable-next-line:no-console
-    console.log(response)
-
+app.get( "/owner/:owner/repos/:repo/pulls/:pullNumber", async( req, res ) => {
+  try {
+    const response = await getCommitList(req.params.owner, req.params.repo, parseInt(req.params.pullNumber, 10))
     res.send(response.data);
+  } catch(error) {
+    res.sendStatus(error.status);
+  }
 });
 
-app.get( "/owner/:owner/repos/:repo/commits", ( req, res ) => {
-  res.send( "Work" );
-});
-
-app.listen( port, () => {
+app.listen(port, () => {
     // tslint:disable-next-line:no-console
     console.log( `server started at http://localhost:${ port }` );
 });
