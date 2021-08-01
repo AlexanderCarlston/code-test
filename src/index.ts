@@ -9,7 +9,21 @@ type listUserRepoPullsParameters = Endpoints["GET /repos/{owner}/{repo}/pulls"][
 type listUserRepoPullsResponse = Endpoints["GET /repos/{owner}/{repo}"]["response"];
 
 app.get( "/", ( req, res ) => {
-    res.send( "Hello world!" );
+  // tslint:disable-next-line:no-console
+  console.log(req)
+  res.send( "Hello world!" );
+});
+
+app.get( "/owner/:id/repos", ( req, res ) => {
+  res.send( "Work" );
+});
+
+app.get( "/owner/:id/repos/:repoId", ( req, res ) => {
+    res.send( "Work" );
+});
+
+app.get( "/owner/:id/repos/:repoId/commits", ( req, res ) => {
+  res.send( "Work" );
 });
 
 app.listen( port, () => {
@@ -42,8 +56,8 @@ async function getCommitList(owner: string, repo: string, pull_number: number) {
   })
 
   // tslint:disable-next-line:no-console
-  console.log(response.data, response.data.length)
+  // console.log(response.data, response.data.length)
 }
 
 // tslint:disable-next-line:no-console
-console.log(getOpenPullRequests('AlexanderCarlston', 'fool-project'))
+// console.log(getOpenPullRequests('AlexanderCarlston', 'fool-project'))
