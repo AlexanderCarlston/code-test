@@ -14,15 +14,18 @@ app.get( "/", ( req, res ) => {
   res.send( "Hello world!" );
 });
 
-app.get( "/owner/:id/repos", ( req, res ) => {
+app.get( "/owner/:owner/repos", async ( req, res ) => {
   res.send( "Work" );
 });
 
-app.get( "/owner/:id/repos/:repoId", ( req, res ) => {
+app.get( "/owner/:owner/repos/:repo", async( req, res ) => {
+    const response = await getOpenPullRequests(req.params.owner, req.params.repo)
+    // tslint:disable-next-line:no-console
+    console.log(response)
     res.send( "Work" );
 });
 
-app.get( "/owner/:id/repos/:repoId/commits", ( req, res ) => {
+app.get( "/owner/:owner/repos/:repo/commits", ( req, res ) => {
   res.send( "Work" );
 });
 
@@ -58,6 +61,3 @@ async function getCommitList(owner: string, repo: string, pull_number: number) {
   // tslint:disable-next-line:no-console
   // console.log(response.data, response.data.length)
 }
-
-// tslint:disable-next-line:no-console
-// console.log(getOpenPullRequests('AlexanderCarlston', 'fool-project'))
