@@ -7,8 +7,10 @@ app.get( "/", ( req, res ) => {
   res.send( "Hello world!" );
 });
 
+// Returns info for open pull requests
 app.get( "/owner/:owner/repos/:repo/pulls", async( req, res ) => {
   // TODO: Add params validation
+  // TODO: add dynamic state and other properties
   try {
     const response = await getOpenPullRequestsForRepo(req.params.owner, req.params.repo);
     res.send(response.data);
@@ -17,6 +19,7 @@ app.get( "/owner/:owner/repos/:repo/pulls", async( req, res ) => {
   }
 });
 
+// Returns commit list (number of commits)
 app.get( "/owner/:owner/repos/:repo/pulls/:pullNumber", async( req, res ) => {
   // TODO: Add params validation
   try {

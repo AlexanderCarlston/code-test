@@ -5,6 +5,7 @@ type listUserRepoPullsParameters = Endpoints["GET /repos/{owner}/{repo}/pulls"][
 type listUserRepoPullsResponse = Endpoints["GET /repos/{owner}/{repo}/pulls"]["response"];
 type listUserRepoPullCommitsParameters = Endpoints["GET /repos/{owner}/{repo}/pulls/{pull_number}/commits"]["parameters"];
 type listUserRepoPullCommitsResponse = Endpoints["GET /repos/{owner}/{repo}/pulls/{pull_number}/commits"]["response"];
+
 // Returns info for open pull requests
 export async function getOpenPullRequestsForRepo(owner: listUserRepoPullsParameters["owner"], repo: listUserRepoPullsParameters["repo"]): Promise<listUserRepoPullsResponse> {
   return await octokit.request('GET /repos/{owner}/{repo}/pulls', {
