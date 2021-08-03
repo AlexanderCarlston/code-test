@@ -30,6 +30,7 @@ app.get( "/owner/:owner/repos/:repo/pulls/:pullNumber", async( req, res ) => {
   }
 });
 
+// TODO: possible url change github/:githubUrl
 app.get("/github/owner/repos/pulls", async(req, res) => {
   // TODO: add required query params
   // if(req.query.url) {
