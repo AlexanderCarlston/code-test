@@ -30,6 +30,23 @@ app.get( "/owner/:owner/repos/:repo/pulls/:pullNumber", async( req, res ) => {
   }
 });
 
+app.get("/github/owner/repos/pulls", async(req, res) => {
+  // TODO: add required query params
+  // if(req.query.url) {
+  //   res.sendStatus(400)
+  // }
+
+  const url = new URL(req.query.url as string)
+  // TODO: improve url parsing
+  const urlParsed = url.pathname.split('/')
+  try {
+    const response = await getOpenPullRequestsForRepo(urlParsed[1], urlParsed[2]);
+    res.send(response.data);
+  } catch(error) {
+    res.sendStatus(error.status);
+  }
+});
+
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
     console.log( `server started at http://localhost:${ port }` );
